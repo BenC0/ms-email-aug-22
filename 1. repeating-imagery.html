@@ -1,0 +1,69 @@
+<!--
+    templateType: email
+    isAvailableForNewContent: true
+-->
+<!doctype html>
+<html>
+  <head>
+    <title>{% if content.html_title and content.html_title != '' %}{{ content.html_title }}{% else %}{{ content.body.subject }}{% endif %}</title>
+    {% if content.meta_description %}<meta name="description" content="{{ content.meta_description }}"/>{% endif %}
+    <style type="text/css" id="hs-inline-css">
+      /*<![CDATA[*/
+      /* everything in this style tag will be inlined onto matching elements */
+      body {
+        width: 600px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      /*]]>*/
+    </style>
+    <!--[if mso]>
+      <style type="text/css">
+        table {
+          border-spacing: 0;
+          border-collapse: collapse;
+          mso-table-lspace: 0pt !important;
+          mso-table-rspace: 0pt !important;
+        }
+      </style>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Preview text (text which appears right after subject in certain email clients) -->
+    <div id="preview_text" style="display:none!important">{% text "preview_text" label="Preview Text <span class=help-text>This will be used as the preview text that displays in some email clients</span>", value="", no_wrapper=True %}</div>
+    <!-- View as webpage link -->
+    {% if content.create_page %}
+    <div style="font-family: Arial; font-size: 16px; font-style: normal; font-weight: 400; line-height: 25px; letter-spacing: -0.09574468433856964px; text-align: center; display: none !important;">
+      Not rendering correctly? View this email as a web page <a class="hubspot-mergetag" data-viewaswebpage="true" href="{{ view_as_page_url }}">here</a>.
+    </div>
+    {% endif %}
+    <!--[if (mso)|(mso 16)]>
+      <table width="100%" style="margin:0 auto"><tbody><tr><td></td><td width="600">
+    <![endif]-->
+      {% module "navigation"
+        path="./modules/navigation"
+        label="navigation"
+      %}
+      <table style="display: none !important;"> <tbody> <tr> <td>
+        <!-- Office location information and unsubscribe links -->
+        <p id="footer" style="display: none !important;">
+          {{ site_settings.company_name }}&nbsp;
+          {{ site_settings.company_street_address_1 }}&nbsp;
+          {{ site_settings.company_street_address_2 }}&nbsp;
+          {{ site_settings.company_city }}&nbsp;
+          {{ site_settings.company_state }}&nbsp;
+          {{ site_settings.company_zip }}&nbsp;
+          {{ site_settings.company_country }}&nbsp;
+          <br/>
+          You received this email because you are subscribed to {{ subscription_name }} from {{ site_settings.company_name }}.
+          <br/>
+          Update your <a class="hubspot-mergetag" data-unsubscribe="true" href="{{ unsubscribe_link }}">email preferences</a> to choose the types of emails you receive.
+          <br/>
+          <a class="hubspot-mergetag" data-unsubscribe="true" href="{{ unsubscribe_link_all }}">Unsubscribe from all future emails</a>
+        </p>
+      </td> </tr> </tbody> </table>
+    <!--[if (mso)|(mso 16)]>
+    <td></td></td></tr></tbody></table>
+    <![endif]-->
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<table class="navigation" align="center" width="600" style="background: #ffffff; width: 100%; max-width: 600px;" cellspacing="0">
+    <tbody>
+        {% if module.decoration %}
+            <tr>
+                <td style="background: #000000;" height="30"> </td>
+            </tr>
+            <tr>
+                <td style="background: #F37037;" height="10"> </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="logo_container" valign="middle" align="left" style="padding: 11px 20px;">
+                {% if module.logo.src %}
+                    {% set sizeAttrs = 'width="{{ module.logo.width }}" height="{{ module.logo.height }}"' %}
+                    {% if module.logo.size_type == 'auto' %}
+                        {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+                    {% elif module.logo.size_type == 'auto_custom_max' %}
+                        {% set sizeAttrs = 'width="{{ module.logo.max_width }}" height="{{ module.logo.max_height }}" style="max-width: 100%; height: auto;"' %}
+                    {% endif %}
+                    {% set loadingAttr = module.logo.loading != 'disabled' ? 'loading="{{ module.logo.loading }}"' : '' %}
+                    <img src="{{ module.logo.src }}" alt="{{ module.logo.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
